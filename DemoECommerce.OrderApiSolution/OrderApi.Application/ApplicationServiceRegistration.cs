@@ -50,6 +50,7 @@ namespace OrderApi.Application
             {
                 builder.AddRetry(retryStrategy);
             });
+
             return services;
         }
     }
