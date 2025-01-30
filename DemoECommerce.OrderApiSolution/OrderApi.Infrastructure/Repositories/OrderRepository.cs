@@ -41,7 +41,7 @@ namespace OrderApi.Infrastructure.Repositories
         {
             try
             {
-                var order = await context.Orders.FindAsync(entity);
+                var order = await context.Orders.AsNoTracking().FirstOrDefaultAsync(o=>o.Id == entity.Id);
                 if(order == null)
                 {
                     return new Response()
@@ -87,7 +87,9 @@ namespace OrderApi.Infrastructure.Repositories
         {
             try
             {
-            return await context.Orders.ToListAsync();
+                Console.WriteLine("Using Database: " + context.Database.GetDbConnection().ConnectionString);
+
+                return await context.Orders.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -137,7 +139,7 @@ namespace OrderApi.Infrastructure.Repositories
         {
             try
             {
-                var order = await context.Orders.FindAsync(entity);
+                var order = await context.Orders.AsNoTracking().FirstOrDefaultAsync(o=> o.Id == entity.Id);
                 if(order == null)
                 {
                     return new Response()
