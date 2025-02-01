@@ -53,7 +53,7 @@ namespace AuthenticationApi.Infrastructure.Repositories
         {
             try
             {
-                var user = await context.Users.FirstOrDefaultAsync(u=> u.Email == email);
+                var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(u=> u.Email == email);
                 return user ?? null!;
             }
             catch (Exception ex)
@@ -105,7 +105,7 @@ namespace AuthenticationApi.Infrastructure.Repositories
             return jwtSecurityTokenHandler.WriteToken(jwtSecurityToken);
         }
 
-        public async Task<Response> Register(AppUserDTO appUserDTO)
+        public async Task<Response> Register(AppUserCreateDTO appUserDTO)
         {
             try
             {
@@ -125,6 +125,48 @@ namespace AuthenticationApi.Infrastructure.Repositories
             {
                 LogException.LogExceptions(ex);
                 throw new Exception("Something went wrong trying to register a user");
+            }
+        }
+
+        public async Task<Response> UpdateUser(AppUser appUser)
+        {
+            try
+            {
+                var user = await GetUserByEmail(appUser.Email);
+                if (user == null) { 
+                    return new Response() { Flag = false, Message = "User does not exists." };
+                }
+                appUser.Password = BCrypt.Net.BCrypt.HashPassword(appUser.Password);
+                context.Update(appUser);
+                await context.SaveChangesAsync();
+                return new Response() { Flag = true, Message="User updated successfully." };
+            }catch(Exception ex)
+            {
+                LogException.LogExceptions(ex);
+                throw new Exception("Something went wrong trying to update a user");
+            }
+        }
+
+        public async Task<Response> DeleteUser(int userId)
+        {
+            try
+            {
+                var user = await GetUser(userId);
+                if (user == null)
+                {
+                    return new Response() { Flag = false, Message = "User does not exists." };
+                }
+                context.Remove(user);
+                await context.SaveChangesAsync();
+                return new Response() { Flag = true, Message = "User removed successfully." };
+            }
+            catch (Exception ex)
+            {
+                // Log Original Exception
+                LogException.LogExceptions(ex);
+
+                //display user-friendly message to the client
+                throw new Exception("Error occurred deliting user");
             }
         }
     }

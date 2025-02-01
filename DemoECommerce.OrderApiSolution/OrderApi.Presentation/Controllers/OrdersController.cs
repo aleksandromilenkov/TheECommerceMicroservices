@@ -46,7 +46,7 @@ namespace OrderApi.Presentation.Controllers
         {
             if (orderId < 0) { return BadRequest("Invalid userId"); }
             var orderDetails = await orderService.GetOrderDetails(orderId);
-            return Ok(orderDetails);
+            return orderDetails == null ? NotFound("Order with that Id does not exists.") : Ok(orderDetails);
         }
 
         [HttpPost]

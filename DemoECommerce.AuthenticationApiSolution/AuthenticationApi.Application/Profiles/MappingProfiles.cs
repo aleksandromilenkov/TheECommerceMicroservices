@@ -14,6 +14,7 @@ namespace AuthenticationApi.Application.Profiles
         public MappingProfiles()
         {
             CreateMap<AppUser, AppUserDTO>().ReverseMap();
+            CreateMap<AppUser, AppUserCreateDTO>().ReverseMap();
             CreateMap<AppUser, GetUserDTO>().ReverseMap();
         }
     }

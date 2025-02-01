@@ -1,5 +1,6 @@
 ﻿using AuthenticationApi.Application.DTOs;
 using AuthenticationApi.Application.Interfaces;
+using AuthenticationApi.Domain.Entities;
 using AutoMapper;
 using ECommerce.SharedLibrary.Responses;
 using Microsoft.AspNetCore.Http;
@@ -28,10 +29,10 @@ namespace AuthenticationApi.Presentation.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<Response>> Register([FromBody] AppUserDTO appUserDto)
+        public async Task<ActionResult<Response>> Register([FromBody] AppUserCreateDTO appUserCreateDto)
         {
             if (!ModelState.IsValid) return BadRequest("Wrong input");
-            var response = await appUserRepository.Register(appUserDto);
+            var response = await appUserRepository.Register(appUserCreateDto);
             return response.Flag ? Ok(response) : BadRequest(response);
         }
 
@@ -40,6 +41,23 @@ namespace AuthenticationApi.Presentation.Controllers
         {
             if (!ModelState.IsValid) return BadRequest("Wrong input");
             var response = await appUserRepository.Login(loginUserDTO);
+            return response.Flag ? Ok(response) : BadRequest(response);
+        }
+
+
+        [HttpPut]
+        public async Task<ActionResult<Response>> UpdateUser([FromBody] AppUserDTO appUserDTO)
+        {
+            if (!ModelState.IsValid) return BadRequest("Wrong input");
+            var mappedUser = mapper.Map<AppUser>(appUserDTO);
+            var response = await appUserRepository.UpdateUser(mappedUser);
+            return response.Flag ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpDelete("{appUserId:int}")]
+        public async Task<ActionResult<Response>> DeleteUser([FromRoute] int appUserId)
+        {
+            var response = await appUserRepository.DeleteUser(appUserId);
             return response.Flag ? Ok(response) : BadRequest(response);
         }
     }

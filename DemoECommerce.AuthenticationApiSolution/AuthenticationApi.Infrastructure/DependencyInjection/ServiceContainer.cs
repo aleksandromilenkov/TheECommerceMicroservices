@@ -26,23 +26,8 @@ namespace AuthenticationApi.Infrastructure.DependencyInjection
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-           .AddJwtBearer(o =>
-           {
-               o.RequireHttpsMetadata = false;
-               o.SaveToken = false;
-               o.TokenValidationParameters = new TokenValidationParameters
-               {
-                   ValidateIssuerSigningKey = true,
-                   ValidateIssuer = true,
-                   ValidateAudience = true,
-                   ValidateLifetime = true,
-                   ClockSkew = TimeSpan.Zero,
-                   ValidIssuer = config["Authentication:Issuer"],
-                   ValidAudience = config["Authentication:Audience"],
-                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Authentication:Key"]!))
-               };
-           });
+            });
+           
             return services;
         }
 
