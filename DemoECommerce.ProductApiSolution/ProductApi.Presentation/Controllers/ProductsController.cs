@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ECommerce.SharedLibrary.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductApi.Application.DTOs;
@@ -10,6 +11,7 @@ namespace ProductApi.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class ProductsController(IProduct productRepository, IMapper mapper) : ControllerBase
     {
         [HttpGet]
@@ -32,6 +34,7 @@ namespace ProductApi.Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<Response>> CreateProduct([FromBody] ProductCreateDTO productToCreate)
         {
             if (!ModelState.IsValid)
@@ -44,6 +47,7 @@ namespace ProductApi.Presentation.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Response>> UpdateProduct([FromBody] ProductDTO productToCreate)
         {
             if (!ModelState.IsValid)
@@ -56,6 +60,7 @@ namespace ProductApi.Presentation.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Response>> DeleteProduct([FromRoute] int id)
         {
             if (id < 0)

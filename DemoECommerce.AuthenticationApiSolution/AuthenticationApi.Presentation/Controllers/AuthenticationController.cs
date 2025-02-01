@@ -3,6 +3,7 @@ using AuthenticationApi.Application.Interfaces;
 using AuthenticationApi.Domain.Entities;
 using AutoMapper;
 using ECommerce.SharedLibrary.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace AuthenticationApi.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthenticationController(IAppUser appUserRepository, IMapper mapper) : ControllerBase
     {
         [HttpGet]
@@ -21,6 +23,7 @@ namespace AuthenticationApi.Presentation.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<ActionResult<GetUserDTO>> GetUser([FromRoute] int id)
         {
             var user = await appUserRepository.GetUser(id);
