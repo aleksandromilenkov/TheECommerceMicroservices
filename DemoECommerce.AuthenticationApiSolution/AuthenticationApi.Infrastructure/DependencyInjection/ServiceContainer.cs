@@ -22,11 +22,7 @@ namespace AuthenticationApi.Infrastructure.DependencyInjection
             // Add Db Connect and Authentication Scheme
             SharedServiceContainer.AddSharedServices<AuthenticationDbContext>(services, config, config["MySerilog:FileName"]!);
             services.AddScoped<IAppUser, AppUserRepository>();
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            });
+
            
             return services;
         }

@@ -90,20 +90,23 @@ namespace AuthenticationApi.Infrastructure.Repositories
                 new Claim(ClaimTypes.Email, user.Email),
             };
 
-            if(!string.IsNullOrEmpty(user.Role) || !Equals("string", user.Role))
+            // Only add role if it's not null or empty
+            if (!string.IsNullOrEmpty(user.Role))
             {
                 claims.Add(new Claim(ClaimTypes.Role, user.Role));
             }
 
             var jwtSecurityToken = new JwtSecurityToken(
-               issuer: config.GetSection("Authentication:Issuer").Value,
-               audience: config.GetSection("Authentication:Audience").Value,
-               claims: claims,
-               expires: DateTime.UtcNow.AddMinutes(10),
-               signingCredentials: signingCredentials);
+                issuer: config.GetSection("Authentication:Issuer").Value,
+                audience: config.GetSection("Authentication:Audience").Value,
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(10),
+                signingCredentials: signingCredentials);
+
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             return jwtSecurityTokenHandler.WriteToken(jwtSecurityToken);
         }
+
 
         public async Task<Response> Register(AppUserCreateDTO appUserDTO)
         {

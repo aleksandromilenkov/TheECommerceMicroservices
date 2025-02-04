@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using ECommerce.SharedLibrary.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -34,9 +35,14 @@ namespace ProductApi.Presentation.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles ="Admin")]
+        [Authorize]
         public async Task<ActionResult<Response>> CreateProduct([FromBody] ProductCreateDTO productToCreate)
         {
+            var user = HttpContext.User;
+            var isAdmin = user.Claims
+                .Any(c => c.Type == ClaimTypes.Role && c.Value.Equals("Admin", StringComparison.OrdinalIgnoreCase));
+
+            if (!isAdmin) return BadRequest("Bad Request");
             if (!ModelState.IsValid)
             {
                 return BadRequest("Bad Request");
@@ -47,9 +53,14 @@ namespace ProductApi.Presentation.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<Response>> UpdateProduct([FromBody] ProductDTO productToCreate)
         {
+            var user = HttpContext.User;
+            var isAdmin = user.Claims
+                .Any(c => c.Type == ClaimTypes.Role && c.Value.Equals("Admin", StringComparison.OrdinalIgnoreCase));
+
+            if (!isAdmin) return BadRequest("Bad Request");
             if (!ModelState.IsValid)
             {
                 return BadRequest("Bad Request");
@@ -60,9 +71,14 @@ namespace ProductApi.Presentation.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<Response>> DeleteProduct([FromRoute] int id)
         {
+            var user = HttpContext.User;
+            var isAdmin = user.Claims
+                .Any(c => c.Type == ClaimTypes.Role && c.Value.Equals("Admin", StringComparison.OrdinalIgnoreCase));
+
+            if (!isAdmin) return BadRequest("Bad Request");
             if (id < 0)
             {
                 return BadRequest("Bad Request");
