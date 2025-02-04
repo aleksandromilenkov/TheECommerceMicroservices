@@ -16,3 +16,20 @@ JWT Authentication (Custom implementation)
 Ocelot CacheManager  
 
 Serilog Logging  
+
+Auto-Mapper  
+
+I have created 4 microservices:
+
+1. API Gateway Microservice - which is using ocelot to limit the calls to the API and register the allowed routes. Deciding which routes are requiring authentication and which aren't. Also I'm caching the products and orders.
+  
+2. Authentication Microservice - For manipulating with the application's users. Retreiving, registering, loging, updating and deleting users.
+ 
+3. Orders Microservice - For manipulating with the orders - Here I'm using synchrouns communication with the Product and Authentication Microservice for getting the Order Details and User's orders.  Also there are other basic CRUD operations for the Order entity.
+
+4. Product Microservice - For manipulating with the products.
+
+5. Shared Library - this is Class Library project (not microservice) which is referenced in every microservice because here i have generic methods for connecting to the database, declaring JWT authentication scheme, logging with Serilog, generic interface for the repositories, Middlewares for checking if the Request contain's the "App-Gateway" header which is specified in the API Gateway.
+
+I'm using Microsoft SQL Server database, just one database for all the microservices.  
+There are also some limitations to create the products you must have a role of admin.  
