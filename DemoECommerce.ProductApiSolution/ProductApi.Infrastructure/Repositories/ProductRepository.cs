@@ -45,11 +45,6 @@ namespace ProductApi.Infrastructure.Repositories
         {
             try
             {
-                var product = await FindByIdAsync(entity.Id);
-                if(product is null) {
-                    return new Response(false, $"{entity.ProductName} not found.");
-
-                }
                 context.Products.Remove(entity);
                 await context.SaveChangesAsync();
                 return new Response(true, $"{entity.ProductName} is deleted successfully.");
@@ -59,7 +54,7 @@ namespace ProductApi.Infrastructure.Repositories
                 LogException.LogExceptions(ex);
 
                 //display user-friendly message to the client
-                return new Response(false, "Error occurred adding new product");
+                return new Response(false, "Error occurred deleting new product");
             }
         }
 

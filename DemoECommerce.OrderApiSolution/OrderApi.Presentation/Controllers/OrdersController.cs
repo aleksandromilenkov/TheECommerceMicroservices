@@ -20,7 +20,7 @@ namespace OrderApi.Presentation.Controllers
         {
             var orders = await orderRepository.GetAllAsync();
             var mappedOrders = mapper.Map<List<OrderDTO>>(orders);
-            return mappedOrders;
+            return Ok(mappedOrders);
         }
 
         [HttpGet("{id:int}")]
@@ -32,7 +32,7 @@ namespace OrderApi.Presentation.Controllers
                 return NotFound("Order not found.");
             }
             var mappedOrder = mapper.Map<OrderDTO>(order);
-            return mappedOrder;
+            return Ok(mappedOrder);
         }
 
         [HttpGet("client/{userId:int}")]

@@ -20,7 +20,7 @@ namespace ProductApi.Presentation.Controllers
         {
             var products = await productRepository.GetAllAsync();
             var mappedProducts = mapper.Map<List<ProductDTO>>(products);
-            return mappedProducts;
+            return Ok(mappedProducts);
         }
 
         [HttpGet("{id:int}")]
@@ -31,22 +31,23 @@ namespace ProductApi.Presentation.Controllers
                 return NotFound("Product not found.");
             }
             var mappedProduct = mapper.Map<ProductDTO>(product);
-            return mappedProduct;
+            return Ok(mappedProduct);
         }
 
         [HttpPost]
         [Authorize]
         public async Task<ActionResult<Response>> CreateProduct([FromBody] ProductCreateDTO productToCreate)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Bad Request");
+            }
             var user = HttpContext.User;
             var isAdmin = user.Claims
                 .Any(c => c.Type == ClaimTypes.Role && c.Value.Equals("Admin", StringComparison.OrdinalIgnoreCase));
 
             if (!isAdmin) return BadRequest("Bad Request");
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Bad Request");
-            }
+
             var product = mapper.Map<Product>(productToCreate);
             var resp = await productRepository.CreateAsync(product);
             return resp.Flag is true ? Ok(resp) : BadRequest(resp);
