@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderApi.Domain", "OrderApi.Domain\OrderApi.Domain.csproj", "{BE4D99B5-86E4-436B-AF74-30ABC81BA4CD}"
 EndProject
@@ -12,6 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderApi.Presentation", "OrderApi.Presentation\OrderApi.Presentation.csproj", "{2028A87F-2118-4294-B95F-3CD713521FC1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.SharedLibrary", "..\DemoECommerce.SharedLibrarySolution\ECommerce.SharedLibrary\ECommerce.SharedLibrary.csproj", "{186EAFAA-D895-4CD9-AEDA-41376F1DA09C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{60789AA9-6BC4-4E7B-A05D-15BE291FDCF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{10ED2E40-3C2E-4039-995B-EABEE6190469}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.OrderApi", "UnitTest.OrderApi\UnitTest.OrderApi.csproj", "{0E9D58ED-9C2D-409F-AEE5-EFEC6381B371}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +45,20 @@ Global
 		{186EAFAA-D895-4CD9-AEDA-41376F1DA09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{186EAFAA-D895-4CD9-AEDA-41376F1DA09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{186EAFAA-D895-4CD9-AEDA-41376F1DA09C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E9D58ED-9C2D-409F-AEE5-EFEC6381B371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E9D58ED-9C2D-409F-AEE5-EFEC6381B371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E9D58ED-9C2D-409F-AEE5-EFEC6381B371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E9D58ED-9C2D-409F-AEE5-EFEC6381B371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BE4D99B5-86E4-436B-AF74-30ABC81BA4CD} = {60789AA9-6BC4-4E7B-A05D-15BE291FDCF9}
+		{373372B3-9FE4-45D2-A792-00CF058E47D8} = {60789AA9-6BC4-4E7B-A05D-15BE291FDCF9}
+		{4098E068-F700-4589-8CAB-85F155C38584} = {60789AA9-6BC4-4E7B-A05D-15BE291FDCF9}
+		{2028A87F-2118-4294-B95F-3CD713521FC1} = {60789AA9-6BC4-4E7B-A05D-15BE291FDCF9}
+		{186EAFAA-D895-4CD9-AEDA-41376F1DA09C} = {60789AA9-6BC4-4E7B-A05D-15BE291FDCF9}
+		{0E9D58ED-9C2D-409F-AEE5-EFEC6381B371} = {10ED2E40-3C2E-4039-995B-EABEE6190469}
 	EndGlobalSection
 EndGlobal
