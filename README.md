@@ -5,21 +5,23 @@ This project is an E-Commerce Microservices Architecture built using .NET, with 
 
 Technologies Used
 
-.NET 8 (C#)  
+## .NET 8 (C#)  
 
-ASP.NET Web API  
+## ASP.NET Web API  
 
-Entity Framework Core (SQL Server)  
+## Entity Framework Core (SQL Server)  
 
-Ocelot API Gateway  
+## Ocelot API Gateway  
 
-JWT Authentication (Custom implementation)  
+## JWT Authentication (Custom implementation)  
 
-Ocelot CacheManager  
+## Ocelot CacheManager  
 
-Serilog Logging  
+## Polly package for retry pipeline
 
-Auto-Mapper  
+## Serilog Logging  
+
+## Auto-Mapper  
 
 xUnit  
 
@@ -36,4 +38,4 @@ I have created 4 microservices:
 5. Shared Library - this is Class Library project (not microservice) which is referenced in every microservice because here i have generic methods for connecting to the database, declaring JWT authentication scheme, logging with Serilog, generic interface for the repositories, Middlewares for checking if the Request contain's the "App-Gateway" header which is specified in the API Gateway.
 
 I'm using Microsoft SQL Server database, just one database for all the microservices.  
-There are also some limitations to create the products you must have a role of admin.  
+There are also some limitations for example to create, update and delete the products you must have a role of admin.  
