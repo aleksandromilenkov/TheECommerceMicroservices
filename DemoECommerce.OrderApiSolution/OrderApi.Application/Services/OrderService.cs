@@ -16,7 +16,7 @@ namespace OrderApi.Application.Services
     {
 
         // GET PRODUCT
-        private async Task<ProductDTO> GetProduct(int productId)
+        public async Task<ProductDTO> GetProduct(int productId)
         {
             // Call ProductAPI using HttpClient
             // Redirect this call to the API Gateway since ProductAPI is not responding to outsiders
@@ -30,7 +30,7 @@ namespace OrderApi.Application.Services
         }
 
         // GET USER
-        private async Task<AppUserDTO> GetUser(int userId)
+        public async Task<AppUserDTO> GetUser(int userId)
         {
             // Call ProductAPI using HttpClient
             // Redirect this call to the API Gateway since ProductAPI is not responding to outsiders

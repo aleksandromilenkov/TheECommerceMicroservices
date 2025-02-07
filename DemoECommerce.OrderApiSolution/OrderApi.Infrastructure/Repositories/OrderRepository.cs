@@ -87,8 +87,6 @@ namespace OrderApi.Infrastructure.Repositories
         {
             try
             {
-                Console.WriteLine("Using Database: " + context.Database.GetDbConnection().ConnectionString);
-
                 return await context.Orders.ToListAsync();
             }
             catch (Exception ex)
