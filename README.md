@@ -1,6 +1,6 @@
 ECommerce Microservices
 
-This project is an E-Commerce Microservices Architecture built using .NET, with a focus on Clean Architecture principles. It consists of multiple microservices that handle different business functionalities, along with an API Gateway for routing and security.
+This project is an E-Commerce Microservices Architecture built using .NET, with a focus on Clean Architecture principles. It consists of multiple microservices that handle different business functionalities, along with an API Gateway for routing and security. Also there are unit tests for the controllers, services and repositories of each microservice implemented with xUnit.  
 Technologies Used
 
 .NET 8 (C#)  
@@ -18,6 +18,8 @@ Ocelot CacheManager
 Serilog Logging  
 
 Auto-Mapper  
+
+xUnit  
 
 I have created 4 microservices:
 
